@@ -14,6 +14,11 @@ public final class Term {
         this.positions = new ArrayList<Integer>();
     }
 
+    public Term(String token, ArrayList<Integer> positions) {
+        this.token = token;
+        this.positions = positions;
+    }
+
     public void addPosition(Integer position) {
         this.positions.add(position);
     }
