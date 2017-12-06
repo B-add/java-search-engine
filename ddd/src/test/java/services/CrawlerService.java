@@ -1,6 +1,6 @@
-package main;
+package services;
 
-import main.java.models.Url;
+import models.Url;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,6 @@ import java.util.ArrayList;
  */
 public class CrawlerService {
     public ArrayList<Url> crawl(Url url) {
-
+        return null;
     }
 }

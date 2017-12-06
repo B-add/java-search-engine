@@ -1,6 +1,6 @@
-package main.interfaces;
+package interfaces;
 
-import main.java.models.Url;
+import models.Url;
 
 import java.util.Set;
 

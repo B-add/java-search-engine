@@ -1,4 +1,4 @@
-package main.java.models;
+package models;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public final class Term {
 
     public Term(String token) {
         this.token = token;
-        this.positions = new ArrayList<>();
+        this.positions = new ArrayList<Integer>();
     }
 
     public void addPosition(Integer position) {
