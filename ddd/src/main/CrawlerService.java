@@ -9,6 +9,6 @@ import java.util.ArrayList;
  */
 public class CrawlerService {
     public ArrayList<Url> crawl(Url url) {
-        
+
     }
 }
