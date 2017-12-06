@@ -1,23 +1,26 @@
 package services;
 
+import models.Document;
 import models.Term;
 import models.Url;
+import models.RetroIndex;
+
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by val on 06/12/17.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class IndexerService {
 
     public static models.Document IndexUrl(Url url) {
         models.Document result = new models.Document(url);
-        Document doc;
+        org.jsoup.nodes.Document doc;
         Map<String, ArrayList<Integer>> tokens = new HashMap<String, ArrayList<Integer>>();
         try {
             doc = Jsoup.connect(url.getValue()).get();
@@ -41,5 +44,15 @@ public class IndexerService {
             return null;
         }
         return result;
+    }
+
+    public RetroIndex retroIndex = new RetroIndex();
+
+    public void RetroIndexer(Document document) {
+        ArrayList<Term> documentTerms = document.getTerms();
+
+        for (Term term : documentTerms) {
+            this.retroIndex.Index.put(term.getToken(), document);
+        }
     }
 }
