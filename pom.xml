@@ -10,7 +10,15 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ddd</module>
+
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+    </dependencies>
 
 </project>
