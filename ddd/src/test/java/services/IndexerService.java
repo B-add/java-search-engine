@@ -52,7 +52,12 @@ public class IndexerService {
         ArrayList<Term> documentTerms = document.getTerms();
 
         for (Term term : documentTerms) {
-            this.retroIndex.Index.put(term.getToken(), document);
+            ArrayList<Document> tmp = this.retroIndex.Index.get(term.getToken());
+            if (tmp == null) {
+                tmp = new ArrayList<Document>();
+            }
+            tmp.add(document);
+            this.retroIndex.Index.put(term.getToken(), tmp);
         }
     }
 }
