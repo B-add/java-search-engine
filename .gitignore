@@ -1,3 +1,2 @@
 .idea
-ddd/src/test/java/Main.java
-ddd/target
+domain/target
