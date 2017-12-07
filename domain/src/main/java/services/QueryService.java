@@ -12,11 +12,13 @@ import java.util.ArrayList;
 public class QueryService {
     public static ArrayList<Url> query(String query, RetroIndex rIndex) {
         ArrayList<Url> result = new ArrayList<Url>();
-        for (Document docs: rIndex.Index.get(query)) {
-            result.add(docs.getUrl());
+        ArrayList<Document> docs = rIndex.getDocs(query);
+        if (docs == null) {
+            return result;
+        }
+        for (Document doc: docs) {
+            result.add(doc.url);
         }
         return result;
     }
-
-
 }

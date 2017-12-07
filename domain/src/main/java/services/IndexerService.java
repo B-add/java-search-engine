@@ -1,11 +1,11 @@
 package services;
 
 import models.Document;
+import models.RetroIndex;
 import models.Term;
 import models.Url;
-import models.RetroIndex;
-
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.*;
@@ -18,14 +18,21 @@ import java.util.Map;
 
 public class IndexerService {
 
-    public static models.Document IndexUrl(Url url) {
-        models.Document result = new models.Document(url);
+    private static final String pattern = "[\\w&&\\D]{2,}";
+
+    public static Document indexUrl(Url url) {
+        Document result = new Document(url);
         org.jsoup.nodes.Document doc;
         Map<String, ArrayList<Integer>> tokens = new HashMap<String, ArrayList<Integer>>();
         try {
-            doc = Jsoup.connect(url.getValue()).get();
-            String text = doc.body().text();
-            Pattern p = Pattern.compile("[\\w&&\\D]{2,}");
+            System.out.println(url.value);
+            doc = Jsoup.connect(url.value).get();
+            Element body = doc.body();
+            if (!body.hasText()) {
+                return null;
+            }
+            String text = body.text();
+            Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(text);
             String token;
             int i = 0;
@@ -39,25 +46,21 @@ public class IndexerService {
                 i++;
             }
             result.setTerms(tokens);
+            return result;
+        } catch (org.jsoup.HttpStatusException e) {
+            System.out.println("404");
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        return result;
     }
 
-    public RetroIndex retroIndex = new RetroIndex();
-
-    public void RetroIndexer(Document document) {
-        ArrayList<Term> documentTerms = document.getTerms();
+    public static void retroIndex(Document document) {
+        ArrayList<Term> documentTerms = document.terms;
 
         for (Term term : documentTerms) {
-            ArrayList<Document> tmp = this.retroIndex.Index.get(term.getToken());
-            if (tmp == null) {
-                tmp = new ArrayList<Document>();
-            }
-            tmp.add(document);
-            this.retroIndex.Index.put(term.getToken(), tmp);
+            RetroIndex.getInstance().addDocument(term.token, document);
         }
     }
 }
