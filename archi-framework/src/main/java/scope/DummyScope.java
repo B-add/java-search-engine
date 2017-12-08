@@ -1,5 +1,6 @@
 package scope;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import provider.Provider;
 
 import java.util.Stack;
@@ -10,8 +11,12 @@ import java.util.Stack;
 public class DummyScope implements Scope {
     public final Stack<Provider> providers = new Stack<Provider>();
 
-    public void registerProvider(Provider p) {
+    public boolean registerProvider(Provider p) {
+        if (p == null) {
+            return false;
+        }
         providers.push(p);
+        return true;
     }
 
     public Provider getProvider(Class c) {

@@ -2,6 +2,7 @@ import provider.Provider;
 import scope.DummyScope;
 import scope.Scope;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Stack;
 
 /**
@@ -19,15 +20,19 @@ public class MyFramework {
         for (int i = scopes.size() - 1; i >= 0; i--) {
             matchnigProvider = scopes.get(i).getProvider(c);
             if (matchnigProvider != null) {
-                return matchnigProvider.getProviderInstance();
+                try {
+                    return matchnigProvider.getProviderInstance();
+                } catch (IllegalAccessException|InstantiationException|InvocationTargetException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
         return null;
     }
 
-    public void addProvider(Provider p) {
-        scopes.peek().registerProvider(p);
+    public boolean addProvider(Provider p) {
+        return scopes.peek().registerProvider(p);
     }
 
     public void enterScope(Scope s) {

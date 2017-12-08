@@ -1,8 +1,11 @@
+import provider.Prototype;
 import provider.Singleton;
 import scope.DummyScope;
 import toto.Blob;
 import toto.Blob1;
 import toto.Blob2;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by val on 08/12/17.
@@ -11,7 +14,11 @@ public class Main {
     public static void main(final String[] args) {
         MyFramework framework = new MyFramework();
 
-        framework.addProvider(new Singleton(Blob.class, new Blob1()));
+        try {
+            framework.addProvider(new Prototype(Blob.class, Blob1.class, null));
+        } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException|InstantiationException e) {
+            e.printStackTrace();
+        }
 
         Blob blob = (Blob) framework.getProviderInstance(Blob.class);
 
@@ -19,7 +26,11 @@ public class Main {
 
         framework.enterScope(new DummyScope());
 
-        framework.addProvider(new Singleton(Blob.class, new Blob2()));
+        try {
+            framework.addProvider(new Prototype(Blob.class, Blob2.class, "Je suis Blob2"));
+        } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException|InstantiationException e) {
+            e.printStackTrace();
+        }
 
         blob = (Blob) framework.getProviderInstance(Blob.class);
 
