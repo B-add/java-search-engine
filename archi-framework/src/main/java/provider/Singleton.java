@@ -5,8 +5,8 @@ package provider;
  */
 public class Singleton<T> implements Provider<T> {
 
-    private T instance;
-    private Class<? super T> providerClass;
+    private final T instance;
+    private final Class<? super T> providerClass;
 
     public Singleton(Class<? super T> c, T instance) {
         this.providerClass = c;

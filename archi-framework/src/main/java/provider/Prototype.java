@@ -7,9 +7,9 @@ import java.lang.reflect.InvocationTargetException;
  * Created by val on 08/12/17.
  */
 public class Prototype<T> implements Provider<T> {
-    private final Class<? super T> c;
-    private Constructor<T> constructor;
-    private Object[] params;
+    private final Class<? super T> providerClass;
+    private final Constructor<T> constructor;
+    private final Object[] params;
 
     public Prototype(Class<? super T> c, Class<T> instanceClass, Object... params) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Integer length = params != null ? params.length : 0;
@@ -18,7 +18,7 @@ public class Prototype<T> implements Provider<T> {
             paramsTypes[i] = params[i].getClass();
         }
         this.constructor = instanceClass.getConstructor(paramsTypes);
-        this.c = c;
+        this.providerClass = c;
         this.params = params;
     }
 
@@ -27,6 +27,6 @@ public class Prototype<T> implements Provider<T> {
     }
 
     public Class getProviderClass() {
-        return c;
+        return providerClass;
     }
 }
