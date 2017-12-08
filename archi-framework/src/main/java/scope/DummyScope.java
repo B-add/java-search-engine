@@ -10,7 +10,7 @@ import java.util.Stack;
 public class DummyScope implements Scope {
     public final Stack<Provider> providers = new Stack<Provider>();
 
-    public void addProvider(Provider p) {
+    public void registerProvider(Provider p) {
         providers.push(p);
     }
 

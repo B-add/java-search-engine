@@ -3,10 +3,21 @@ package provider;
 /**
  * Created by val on 07/12/17.
  */
-public class Singleton<T> {
-    private Provider instance;
+public class Singleton<T> implements Provider<T> {
 
-    private Singleton(Provider p) {
+    private T instance;
+    private Class<? super T> providerClass;
 
+    public Singleton(Class<? super T> c, T instance) {
+        this.providerClass = c;
+        this.instance = instance;
+    }
+
+    public T getProviderInstance() {
+        return instance;
+    }
+
+    public Class<? super T> getProviderClass() {
+        return providerClass;
     }
 }
