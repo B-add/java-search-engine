@@ -7,7 +7,7 @@ import java.lang.reflect.Proxy;
 /**
  * Created by val on 07/12/17.
  */
-public class Singleton<T> implements Provider<T> {
+public class Singleton<T> extends AnyProvider<T> {
 
     private final T instance;
     private final Class<? super T> providerClass;
@@ -18,10 +18,7 @@ public class Singleton<T> implements Provider<T> {
     }
 
     public T getProviderInstance() {
-        DynamicProxyHandler<T> dynamicProxy = new DynamicProxyHandler(instance);
-        return (T) Proxy.newProxyInstance(providerClass.getClassLoader(),
-                new Class[] { providerClass },
-                dynamicProxy);
+        return setProxy(instance);
     }
 
     public Class<? super T> getProviderClass() {

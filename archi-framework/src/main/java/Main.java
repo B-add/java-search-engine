@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Main {
     public static void main(final String[] args) {
         MyFramework framework = new MyFramework();
-        //testSingleton(framework);
+        testSingleton(framework);
         testPrototype(framework);
 
     }

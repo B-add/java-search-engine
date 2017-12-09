@@ -9,7 +9,7 @@ import java.lang.reflect.Proxy;
 /**
  * Created by val on 08/12/17.
  */
-public class Prototype<T> implements Provider<T> {
+public class Prototype<T> extends AnyProvider<T> {
     private final Class<? super T> providerClass;
     private final Constructor<T> constructor;
     private final Object[] params;
@@ -26,10 +26,7 @@ public class Prototype<T> implements Provider<T> {
     }
 
     public T getProviderInstance() throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        DynamicProxyHandler<T> dynamicProxy = new DynamicProxyHandler(constructor.newInstance(params));
-        return (T) Proxy.newProxyInstance(providerClass.getClassLoader(),
-                new Class[] { providerClass },
-                dynamicProxy);
+        return setProxy(constructor.newInstance(params));
     }
 
     public Class getProviderClass() {
