@@ -13,6 +13,7 @@ public class Singleton<T> extends AnyProvider<T> {
     private final Class<? super T> providerClass;
 
     public Singleton(Class<? super T> c, T instance) {
+        super();
         this.providerClass = c;
         this.instance = instance;
     }

@@ -15,6 +15,7 @@ public class Prototype<T> extends AnyProvider<T> {
     private final Object[] params;
 
     public Prototype(Class<? super T> c, Class<T> instanceClass, Object... params) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        super();
         Integer length = params != null ? params.length : 0;
         Class[] paramsTypes = new Class[length];
         for (int i = 0; i < length; i++) {

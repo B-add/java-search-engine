@@ -24,7 +24,6 @@ public class Main {
         } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException|InstantiationException e) {
             e.printStackTrace();
         }
-
         Blob blob = (Blob) framework.getProviderInstance(Blob.class);
 
         System.out.println(blob.getBlob());
